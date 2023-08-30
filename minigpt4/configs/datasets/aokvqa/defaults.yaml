@@ -1,0 +1,7 @@
+datasets:
+  aokvqa:
+    data_type: images
+    build_info:
+      annotation: ./data/A-OKVQA/aokvqa_v1p0_train.json
+      coco: ./data/COCO2017/annotations/instances_train2017.json
+      images: ./data/COCO2017/train2017

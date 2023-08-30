@@ -1,0 +1,8 @@
+datasets:
+  gptvqa_round1:
+    data_type: images
+    build_info:
+      train:
+          annotation: ./data/gptvqa/DataEngine_round1_data.json
+          coco: ./data/COCO2017/annotations/instances_train2017.json
+          images: ./data/COCO2017/train2017
