@@ -61,6 +61,7 @@ class VQABlip2Task(BaseTask):
             correct_choice_idx = samples_all[index]["correct_choice_idx"]
             difficult_direct_answer = samples_all[index]["difficult_direct_answer"]
             direct_answers = samples_all[index]["direct_answers"]
+            question_type = samples_all[index]["question_type"]
             
             choice_txt, _ = make_choice_text(choices, correct_choice_idx)
             
@@ -132,6 +133,7 @@ class VQABlip2Task(BaseTask):
                     "direct_answers": direct_answers,
                     "difficult_direct_answer": difficult_direct_answer,
                     "model_answer": message,
+                    "question_type": question_type,
                 }
             )
         
@@ -157,10 +159,44 @@ class VQABlip2Task(BaseTask):
             
         # save model
         if save_result:
+            # save evaluation results
             filename = "evaluation/aokvqa_eval.json"
+            print(f"save evaluation results to {filename}")
             os.makedirs(os.path.dirname(filename), exist_ok=True)
             with open(filename, "w") as f:
                 json.dump(results_all_rank, f)
+            
+            # reformatting
+            results_all_rank_classified = {}
+            for item in results_all_rank:
+                if item["question_type"] not in results_all_rank_classified:
+                    results_all_rank_classified[item["question_type"]] = []
+                results_all_rank_classified[item["question_type"]].append(item)
+                
+            # save classified bad cases
+            bad_case = "engine_pipeline/data/bad_case_aokvqa_classified.json"
+            print(f"save classified bad case to {bad_case}")
+            results_bad_case_classified = copy.deepcopy(results_all_rank_classified)
+            for k in results_bad_case_classified.keys():
+                results_bad_case_classified[k] = [
+                    item for item in results_bad_case_classified[k]
+                    if item["model_answer"] != item["choices"][item["correct_choice_idx"]]
+                ]
+            os.makedirs(os.path.dirname(bad_case), exist_ok=True)
+            with open(bad_case, "w") as f:
+                json.dump(results_bad_case_classified, f)
+            
+            # save weights
+            weight_file = "engine_pipeline/data/weight.json"
+            print(f"save weight of each question type to {weight_file}")
+            type_weights = {}
+            for k in results_all_rank_classified.keys():
+                type_results = results_all_rank_classified[k]
+                count_wrong = sum([1 for item in type_results if item["model_answer"] != item["choices"][item["correct_choice_idx"]]])
+                type_weights[k] = round(count_wrong/len(type_results), 3)
+            os.makedirs(os.path.dirname(weight_file), exist_ok=True)
+            with open(weight_file, "w") as f:
+                json.dump(type_weights, f)
                 
         # gather and calculate results
         formatted_data = format_aokvqa_format(results_all_rank)

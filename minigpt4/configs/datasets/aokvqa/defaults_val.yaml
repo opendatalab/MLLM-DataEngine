@@ -2,6 +2,6 @@ datasets:
   aokvqa_val:
     data_type: images
     build_info:
-      annotation: ./data/A-OKVQA/aokvqa_v1p0_val.json
+      annotation: ./data/A-OKVQA/aokvqa_v1p0_val_classified.json
       coco: ./data/COCO2017/annotations/instances_val2017.json
       images: ./data/COCO2017/val2017
