@@ -150,6 +150,8 @@ Three results files are stored during evaluation:
 
 3. ```engine_pipeline/data/weight.json```: model error rate on each kind of question type.
 
+These files are used in follow-up data-engine pipeline.
+
 #### evaluate on MMBenchmark dev
 
 according to limits of MMBenchmark, we cannot release the inference code on MMBenchmark, so we give a brief instruction instead.
