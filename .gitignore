@@ -1,0 +1,12 @@
+minigpt4/output/*
+*.pth
+*.ipynb
+wandb/*
+dataset/*
+train_fsdp.py
+train_configs/baseline2/*
+train_configs/ablation/*
+train_configs/*.yaml
+train_configs/new_env/*
+train_configs/template/*
+data/*
