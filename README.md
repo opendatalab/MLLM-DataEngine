@@ -67,7 +67,7 @@ in [eval_configs/minigpt4_eval.yaml](eval_configs/minigpt4_eval.yaml#L10) at Lin
 
 | A-OKVQA | CCSBUAlign | GPTVQA | 
 | :---: | :---: | :---: |
-| [download](https://drive.google.com/file/d/1QZeY4IH-eF2Nbcrgehoy7PchLDQ5F6o6/view?usp=drive_link) | [download](https://drive.google.com/file/d/1s7kKpRSB0BVveRY2YGN4uhdCmxjWOfJb/view?usp=drive_link) | [download](https://drive.google.com/file/d/1_5EmALJ_UfN19Fi9iBvNbB2U-LBVcEVD/view?usp=drive_link) |
+| [download](https://drive.google.com/file/d/1RE8nyVzXhIG7GMrYyKiQv10vY-gud2TK/view?usp=drive_link) | [download](https://drive.google.com/file/d/1s7kKpRSB0BVveRY2YGN4uhdCmxjWOfJb/view?usp=drive_link) | [download](https://drive.google.com/file/d/1_5EmALJ_UfN19Fi9iBvNbB2U-LBVcEVD/view?usp=drive_link) |
 
 4. finally check the data structure as follows:
 
@@ -90,6 +90,24 @@ in [eval_configs/minigpt4_eval.yaml](eval_configs/minigpt4_eval.yaml#L10) at Lin
     ├── DataEngine_round1_data.json
     └── DataEngine_round2_data.json
 ```
+
+## Install OpenCompass
+
+To evaluate on MMBenchmark, install OpenCompass evaluation environment according to following instructions:
+
+1. Install OpenCompass from ![here](https://opencompass.readthedocs.io/en/latest/get_started.html#installation).
+
+2. Prepare MiniGPT-4 environment according to ![here](https://github.com/open-compass/opencompass/tree/main/configs/multimodal/minigpt_4).
+
+```
+cd opencompass/multimodal/models/minigpt_4
+
+git clone https://github.com/Vision-CAIR/MiniGPT-4.git
+
+
+```
+
+3. 
 
 ## Model Training & Evaluation
 
