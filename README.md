@@ -92,24 +92,6 @@ in [eval_configs/minigpt4_eval.yaml](eval_configs/minigpt4_eval.yaml#L10) at Lin
     
 ```
 
-## Install OpenCompass
-
-To evaluate on MMBenchmark, install OpenCompass evaluation environment according to following instructions:
-
-1. Install OpenCompass from ![here](https://opencompass.readthedocs.io/en/latest/get_started.html#installation).
-
-2. Prepare MiniGPT-4 environment according to ![here](https://github.com/open-compass/opencompass/tree/main/configs/multimodal/minigpt_4).
-
-```
-cd opencompass/multimodal/models/minigpt_4
-
-git clone https://github.com/Vision-CAIR/MiniGPT-4.git
-
-
-```
-
-3. 
-
 ## Model Training & Evaluation
 
 **1. model tuning**
