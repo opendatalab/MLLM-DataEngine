@@ -141,7 +141,13 @@ def process(COCO_root_path, bad_case_path, coco_embedding_path, qtype_distributi
             cap_all[anno["image_id"]] = []
         if anno["caption"] not in cap_all[anno["image_id"]]:
             cap_all[anno["image_id"]].append(anno["caption"])
-        
+    
+    # load coco annotations
+    val2017 = json.load(open(os.path.join(COCO_root_path, "annotations", "instances_val2017.json"), "r"))
+    val_file_all = {}
+    for image in val2017["images"]:
+        val_file_all[image["id"]] = os.path.join(COCO_root_path, "val2017", image["file_name"])
+
     def get_bbox_desc(image_id):
         # bounding box description
         w, h = hw_all[int(image_id)]
@@ -246,7 +252,11 @@ def process(COCO_root_path, bad_case_path, coco_embedding_path, qtype_distributi
         
         # anchor image
         if cnt%2 == 0:
-            anchor_image = Image.open(anchor_sample["image_path"])
+            if anchor_sample.get("image_path", None) is not None:
+                image_path = os.path.join(COCO_root_path, anchor_sample["image_path"])
+            else:
+                image_path = val_file_all[anchor_sample["image_id"]]
+            anchor_image = Image.open(image_path)
             #anchor_image.save("anchor.jpg")
             
             with torch.inference_mode():
@@ -286,7 +296,10 @@ def process(COCO_root_path, bad_case_path, coco_embedding_path, qtype_distributi
         cap = get_cap(query_image_id)
             
         explain = qtype_explanation[qtype_p.replace("_", " ").capitalize()]
-            
+        
+        def get_prompt(sample):
+            txt = "Question: {}\nChoices: (A) {} (B) {} (C) {} (D) {}\nAnswer: The answer is ({}): {}.\nQuestion type: {}".format(sample['question'], sample['choices'][0], sample['choices'][1], sample['choices'][2], sample['choices'][3], ["A","B","C","D"][sample['correct_choice_idx']], sample['choices'][sample['correct_choice_idx']], sample['question_type'].replace('_',' '))
+            return txt
         prompt = PROMPT_TEMPLATE.format(
             qtype_p.replace("_", " "),
             cap,
@@ -294,8 +307,8 @@ def process(COCO_root_path, bad_case_path, coco_embedding_path, qtype_distributi
             qtype_p.replace("_", " "), 
             explain,
             qtype_p.replace("_", " "),
-            in_context_samples[0]["prompt"],
-            in_context_samples[1]["prompt"],
+            in_context_samples[0].get('prompt', get_prompt(in_context_samples[0])),
+            in_context_samples[1].get('prompt', get_prompt(in_context_samples[1])),
             qtype_p.replace("_", " "), 
         )
         
