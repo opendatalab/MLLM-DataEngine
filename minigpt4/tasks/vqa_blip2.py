@@ -160,7 +160,7 @@ class VQABlip2Task(BaseTask):
         # save model
         if save_result:
             # save evaluation results
-            filename = "evaluation/aokvqa_eval.json"
+            filename = "engine_pipeline/data/aokvqa_eval.json"
             print(f"save evaluation results to {filename}")
             os.makedirs(os.path.dirname(filename), exist_ok=True)
             with open(filename, "w") as f:

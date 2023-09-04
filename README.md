@@ -143,13 +143,13 @@ torchrun --nproc-per-node 4 --master-port $RANDOM train.py --cfg-path eval_confi
 
 in ```eval_configs/minigpt4_eval.yaml```, please change ```llama_model``` to the path of merged LLM, and set ```ckpt``` to the stage1 pretrained MiniGPT-4 model.
 
-Three results files are stored during evaluation:
+Three results files are stored under ```engine_pipeline/data``` during evaluation:
 
-1. ```evaluation/aokvqa_eval.json```: stores each question and corresponding model answer.
+1. ```aokvqa_eval.json```: stores each question and corresponding model answer.
 
-2. ```engine_pipeline/data/bad_case_aokvqa_classified.json```: stores questions which model answered wrongly on each kind of question type (bad cases).
+2. ```bad_case_aokvqa_classified.json```: stores questions which model answered wrongly on each kind of question type (bad cases).
 
-3. ```engine_pipeline/data/weight.json```: model error rate on each kind of question type.
+3. ```weight.json```: model error rate on each kind of question type.
 
 These files are used in follow-up data-engine pipeline.
 
