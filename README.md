@@ -65,8 +65,8 @@ in [eval_configs/minigpt4_eval.yaml](eval_configs/minigpt4_eval.yaml#L10) at Lin
 
 3. download following datasets, uncompress, and put them under ```data/```
 
-| A-OKVQA | CCSBUAlign | GPTVQA | 
-| :---: | :---: | :---: |
+| A-OKVQA | CCSBUAlign | GPTVQA | MMBenchmark Dev |
+| :---: | :---: | :---: | :---: |
 | [download](https://drive.google.com/file/d/1RE8nyVzXhIG7GMrYyKiQv10vY-gud2TK/view?usp=drive_link) | [download](https://drive.google.com/file/d/1s7kKpRSB0BVveRY2YGN4uhdCmxjWOfJb/view?usp=drive_link) | [download](https://drive.google.com/file/d/1_5EmALJ_UfN19Fi9iBvNbB2U-LBVcEVD/view?usp=drive_link) |
 
 4. finally check the data structure as follows:
@@ -89,6 +89,7 @@ in [eval_configs/minigpt4_eval.yaml](eval_configs/minigpt4_eval.yaml#L10) at Lin
 └── gptvqa
     ├── DataEngine_round1_data.json
     └── DataEngine_round2_data.json
+    
 ```
 
 ## Install OpenCompass
@@ -170,24 +171,89 @@ Three results files are stored during evaluation:
 
 These files are used in follow-up data-engine pipeline.
 
-#### evaluate on MMBenchmark dev
+#### evaluate on MMBenchmark
 
-according to limits of MMBenchmark, we cannot release the inference code on MMBenchmark, so we give a brief instruction instead.
+To evaluate on MMBenchmark, install opencompass according to following steps:
 
-1. go to [here](https://github.com/InternLM/opencompass/blob/mm/docs/en/MMBench.md), download MMBenchmark dev data and write inference code according to instructions.
-
-2. during inference, set ```llama_model``` to merged LLM and run inference on MMBenchmark dev, we give config of ```llama_model.generate``` for conveniece:
+1. Install opencompass
 
 ```
-max_new_tokens=10
-num_beams=5
-do_sample=False
-min_length=1
-top_p=0.9
-repetition_penalty=1.0
-length_penalty=-1.0
-temperature=1.0
+conda create --name opencompass python=3.10 pytorch torchvision pytorch-cuda -c nvidia -c pytorch -y
+
+conda activate opencompass
+
+git clone https://github.com/InternLM/opencompass.git
+
+cd opencompass
+
+pip install -e .
 ```
+
+2. prepare opencompass MiniGPT-4 environment according to [here](https://github.com/open-compass/opencompass/tree/main/configs/multimodal/minigpt_4)
+
+```
+cd opencompass/multimodal/models/minigpt_4
+
+git clone https://github.com/Vision-CAIR/MiniGPT-4.git
+```
+
+3. install mmpretrain
+
+```
+pip install openmim
+
+git clone https://github.com/open-mmlab/mmpretrain.git
+
+cd mmpretrain
+
+mim install -e .
+
+mim install -e ".[multimodal]"
+```
+
+4. install other packages
+
+```
+pip install decord timm omegaconf webdataset peft openpyxl
+```
+
+After opencompass environment is prepared, set the dataset path and model path in evaluation config file. Evaluation config file used is ```configs/multimodel/minigpt_4/minigpt_4_7b_mmbench.py```.
+
+1. Download MMBenchmark dev from [here](https://download.openmmlab.com/mmclassification/datasets/mmbench/mmbench_dev_20230712.tsv)
+
+2. set dataset path
+
+```python
+dataset = dict(type='opencompass.MMBenchDataset',
+               data_file='path/to/mmbench_dev_20230712.tsv',
+               pipeline=val_pipeline)
+```
+
+3. set model path
+
+set ```llama_model``` to the finetuned and weight merged LLM you prepared and ```minigpt_4_mmbench_load_from``` to the proper stage1 minigpt4 pretrained model.
+
+```python
+# model settings
+minigpt_4_mmbench_model = dict(
+    type='minigpt-4',
+    low_resource=False,
+    llama_model='/path/to/vicuna-7b/',
+    prompt_constructor=dict(type=MiniGPT4MMBenchPromptConstructor,
+                            image_prompt='###Human: <Img><ImageHere></Img>',
+                            reply_prompt='###Assistant:'),
+    post_processor=dict(type=MiniGPT4MMBenchPostProcessor))
+
+# evaluation settings
+minigpt_4_mmbench_evaluator = [
+    dict(type='opencompass.DumpResults',
+         save_path='work_dirs/minigpt-4-7b-mmbench.xlsx')
+]
+
+minigpt_4_mmbench_load_from = '/path/to/prerained_minigpt4_7b.pth'  # noqa
+```
+
+After everything is prepared, following the command [here](https://github.com/open-compass/opencompass/tree/main/configs/multimodal/minigpt_4) to evaluate on MMBenchmark dev. 
 
 ## Acknowledgement
 
