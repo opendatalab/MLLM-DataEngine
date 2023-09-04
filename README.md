@@ -234,18 +234,18 @@ After everything is prepared, following the command [here](https://github.com/op
 + [Lavis](https://github.com/salesforce/LAVIS) Fantastic vision-language model codebase.
 
 
-If you're using MiniGPT-4 in your research or applications, please cite using this BibTeX:
+If you're find MLLM-DataEngine useful, please cite using this BibTeX:
 ```bibtex
-@article{zhu2023minigpt,
-  title={MiniGPT-4: Enhancing Vision-Language Understanding with Advanced Large Language Models},
-  author={Zhu, Deyao and Chen, Jun and Shen, Xiaoqian and Li, Xiang and Elhoseiny, Mohamed},
-  journal={arXiv preprint arXiv:2304.10592},
-  year={2023}
+@misc{zhao2023mllmdataengine,
+      title={MLLM-DataEngine: An Iterative Refinement Approach for MLLM}, 
+      author={Zhiyuan Zhao and Linke Ouyang and Bin Wang and Siyuan Huang and Pan Zhang and Xiaoyi Dong and Jiaqi Wang and Conghui He},
+      year={2023},
+      eprint={2308.13566},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
 }
 ```
 
 
 ## License
 This repository is under [BSD 3-Clause License](LICENSE.md).
-Many codes are based on [Lavis](https://github.com/salesforce/LAVIS) with 
-BSD 3-Clause License [here](LICENSE_Lavis.md).
