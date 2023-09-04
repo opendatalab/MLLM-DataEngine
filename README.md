@@ -65,8 +65,8 @@ in [eval_configs/minigpt4_eval.yaml](eval_configs/minigpt4_eval.yaml#L10) at Lin
 
 3. download following datasets, uncompress, and put them under ```data/```
 
-| A-OKVQA | CCSBUAlign | GPTVQA | MMBenchmark Dev |
-| :---: | :---: | :---: | :---: |
+| A-OKVQA | CCSBUAlign | GPTVQA |
+| :---: | :---: | :---: |
 | [download](https://drive.google.com/file/d/1RE8nyVzXhIG7GMrYyKiQv10vY-gud2TK/view?usp=drive_link) | [download](https://drive.google.com/file/d/1s7kKpRSB0BVveRY2YGN4uhdCmxjWOfJb/view?usp=drive_link) | [download](https://drive.google.com/file/d/1_5EmALJ_UfN19Fi9iBvNbB2U-LBVcEVD/view?usp=drive_link) |
 
 4. finally check the data structure as follows:
@@ -161,13 +161,9 @@ To evaluate on MMBenchmark, install opencompass according to following steps:
 
 ```
 conda create --name opencompass python=3.10 pytorch torchvision pytorch-cuda -c nvidia -c pytorch -y
-
 conda activate opencompass
-
 git clone https://github.com/InternLM/opencompass.git
-
 cd opencompass
-
 pip install -e .
 ```
 
@@ -175,7 +171,6 @@ pip install -e .
 
 ```
 cd opencompass/multimodal/models/minigpt_4
-
 git clone https://github.com/Vision-CAIR/MiniGPT-4.git
 ```
 
@@ -183,13 +178,9 @@ git clone https://github.com/Vision-CAIR/MiniGPT-4.git
 
 ```
 pip install openmim
-
 git clone https://github.com/open-mmlab/mmpretrain.git
-
 cd mmpretrain
-
 mim install -e .
-
 mim install -e ".[multimodal]"
 ```
 
