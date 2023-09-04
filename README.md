@@ -67,7 +67,7 @@ in [eval_configs/minigpt4_eval.yaml](eval_configs/minigpt4_eval.yaml#L10) at Lin
 
 | A-OKVQA | CCSBUAlign | GPTVQA | 
 | :---: | :---: | :---: |
-| [download](https://drive.google.com/file/d/1L10fJsGuxdTPIEjCntPj9DT-URMxB_zK/view?usp=drive_link) | [download](https://drive.google.com/file/d/1s7kKpRSB0BVveRY2YGN4uhdCmxjWOfJb/view?usp=drive_link) | [download](https://drive.google.com/file/d/1_5EmALJ_UfN19Fi9iBvNbB2U-LBVcEVD/view?usp=drive_link) |
+| [download](https://drive.google.com/file/d/1QZeY4IH-eF2Nbcrgehoy7PchLDQ5F6o6/view?usp=drive_link) | [download](https://drive.google.com/file/d/1s7kKpRSB0BVveRY2YGN4uhdCmxjWOfJb/view?usp=drive_link) | [download](https://drive.google.com/file/d/1_5EmALJ_UfN19Fi9iBvNbB2U-LBVcEVD/view?usp=drive_link) |
 
 4. finally check the data structure as follows:
 
