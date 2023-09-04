@@ -62,6 +62,7 @@ class VQABlip2Task(BaseTask):
             difficult_direct_answer = samples_all[index]["difficult_direct_answer"]
             direct_answers = samples_all[index]["direct_answers"]
             question_type = samples_all[index]["question_type"]
+            prompt = samples_all[index]["prompt"]
             
             choice_txt, _ = make_choice_text(choices, correct_choice_idx)
             
@@ -135,6 +136,7 @@ class VQABlip2Task(BaseTask):
                     "difficult_direct_answer": difficult_direct_answer,
                     "model_answer": message,
                     "question_type": question_type,
+                    "prompt": prompt,
                 }
             )
         
