@@ -11,11 +11,11 @@ The Multimodal Large Language Model (MLLM)-DataEngine pipeline consists of five 
 
 You can find all demo data in the `engine_pipeline/data_demo` directory.
 
-## Pre-Step: Question Classification
+## Pre-Step: Question Classification (For A-OKVQA)
 
 In this step, we use GPT-4 to classify the questions in the A-OKVQA validation set into 18 categories. For further details regarding these 18 categories, please refer to the provided [paper](https://arxiv.org/pdf/2308.13566.pdf) or explore the code directly.
 
-We have already classified the A-OKVQA validation set, and you can download the output from [Google Drive](https://drive.google.com/file/d/1RCQbCTIcdwqTJSmrZYlocXP87aDH3hgn/view?usp=drive_link). Therefore, there's no need to rerun this code if you're using A-OKVQA; you can simply use the downloaded classified validation set during model inference.
+We have already classified the A-OKVQA validation set, and you can download the output from [Google Drive]([https://drive.google.com/file/d/1RCQbCTIcdwqTJSmrZYlocXP87aDH3hgn/view?usp=drive_link](https://drive.google.com/file/d/1RE8nyVzXhIG7GMrYyKiQv10vY-gud2TK/view?usp=drive_link)). Therefore, there's no need to rerun this code if you're using A-OKVQA; you can simply use the downloaded classified validation set during model inference.
 
 For reference, here is the script we executed to classify the A-OKVQA validation set:
 
@@ -23,7 +23,7 @@ For reference, here is the script we executed to classify the A-OKVQA validation
 python Pre-Step-bad_case_classify.py \
     --input path/to/aokvqa/val/aokvqa_val.json \
     --image root/path/to/image/folder \
-    --output path/to/classified/bad/cases/bad_case_aokvqa_classified.json
+    --output path/to/aokvqa/val/aokvqa_v1p0_val_classified.json
 ```
 
 Note: You'll need to update line 14 in `engine_pipeline/utils.py` with your own OPENAI key to access GPT-4.
