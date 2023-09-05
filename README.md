@@ -1,11 +1,10 @@
 # MLLM-DataEngine: An Iterative Refinement Approach for MLLM
-Zhiyuan Zhao, Linke Ouyang, Bin Wang, Siyuan Huang
 
 **Shanghai Artificial Intellegence Laboratory**
 
 ## Introduction
 
-we propose MLLM-
+We propose MLLM-
 DataEngine, a novel closed-loop system that bridges data
 generation, model training, and evaluation.
 
@@ -232,9 +231,10 @@ After everything is prepared, following the command [here](https://github.com/op
 
 + [MiniGPT-4](https://github.com/Vision-CAIR/MiniGPT-4) This reposity utilize MiniGPT-4 as codebase and base model.
 + [Lavis](https://github.com/salesforce/LAVIS) Fantastic vision-language model codebase.
++ [Vicuna](https://lmsys.org/blog/2023-03-30-vicuna/) Strong and open-source language model used by many MLLM work.
 
 
-If you're find MLLM-DataEngine useful, please cite using this BibTeX:
+If you're using MLLM-DataEngine in your research or applications, please cite using this BibTeX:
 ```bibtex
 @misc{zhao2023mllmdataengine,
       title={MLLM-DataEngine: An Iterative Refinement Approach for MLLM}, 
@@ -248,4 +248,4 @@ If you're find MLLM-DataEngine useful, please cite using this BibTeX:
 
 
 ## License
-This repository is under [BSD 3-Clause License](LICENSE.md).
+[BSD 3-Clause License](LICENSE.md).
