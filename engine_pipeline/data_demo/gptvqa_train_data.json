@@ -1,0 +1,34 @@
+[
+    {
+      "image_id": 407348,
+      "raw_instructions": "Question: What is likely to happen next in this image?\nChoices: (A) The woman will put down her cell phone [0.45, 0.282, 0.685, 0.783] (B) The woman will check the time on the clock [0.756, 0.862, 0.809, 0.964] (C) The woman will put her handbag [0.412, 0.64, 0.504, 0.989] down (D) The woman will continue talking on her cell phone [0.45, 0.282, 0.685, 0.783]\nAnswer: The answer is (D): The woman will continue talking on her cell phone [0.45, 0.282, 0.685, 0.783].\nExplanations: By observing the image, we can see that the woman is in the middle of a phone call, as the cell phone [0.45, 0.282, 0.685, 0.783] is held up to her ear. It is likely that she will continue her conversation before taking any other action. The fact that she is not looking at the clock [0.756, 0.862, 0.809, 0.964] suggests that checking the time is not her immediate concern. Similarly, there is no indication that she is about to put down her handbag [0.412, 0.64, 0.504, 0.989] or her cell phone [0.45, 0.282, 0.685, 0.783].",
+      "question_type": "future_prediction",
+      "question": "What is likely to happen next in this image?",
+      "choices": [
+        "The woman will put down her cell phone",
+        "The woman will check the time on the clock",
+        "The woman will put her handbag down",
+        "The woman will continue talking on her cell phone"
+      ],
+      "correct_choice_idx": 3,
+      "rationales": [
+        "Explanations: By observing the image, we can see that the woman is in the middle of a phone call, as the cell phone is held up to her ear. It is likely that she will continue her conversation before taking any other action. The fact that she is not looking at the clock suggests that checking the time is not her immediate concern. Similarly, there is no indication that she is about to put down her handbag or her cell phone."
+      ]
+    },
+    {
+      "image_id": 550113,
+      "raw_instructions": "Question: What is likely to happen to the boat [0.175, 0.003, 0.743, 0.969] in the future?\nChoices: (A) The boat will sail into the ocean. (B) The boat will remain docked on the beach. (C) The boat will be moved to a boatyard for repairs. (D) The boat will be used for a beach party.\nAnswer: The answer is (A): The boat will sail into the ocean.\nExplanation: Looking at the image, we can see that the boat is positioned on the beach near the ocean. It's likely that it was placed there during low tide. It is reasonable to predict that when the tide comes in, the boat will be used to sail into the ocean. Other options like remaining docked on the beach or being moved to a boatyard for repairs are less likely based on the image. Using the boat for a beach party is also possible, but given that the boat is near the water, it's more likely that it's intended for sailing.",
+      "question_type": "future_prediction",
+      "question": "What is likely to happen to the boat in the future?",
+      "choices": [
+        "The boat will sail into the ocean",
+        "The boat will remain docked on the beach",
+        "The boat will be moved to a boatyard for repairs",
+        "The boat will be used for a beach party"
+      ],
+      "correct_choice_idx": 0,
+      "rationales": [
+        "Explanation: Looking at the image, we can see that the boat is positioned on the beach near the ocean. It's likely that it was placed there during low tide. It is reasonable to predict that when the tide comes in, the boat will be used to sail into the ocean. Other options like remaining docked on the beach or being moved to a boatyard for repairs are less likely based on the image. Using the boat for a beach party is also possible, but given that the boat is near the water, it's more likely that it's intended for sailing."
+      ]
+    }
+]
