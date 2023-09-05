@@ -4,20 +4,19 @@ import pdb
 import copy
 import json
 import tqdm
+import torch
 import logging
 import numpy as np
 from PIL import Image
-
-import torch
 import torch.distributed as dist
 
 from minigpt4.common.registry import registry
-from minigpt4.common.dist_utils import get_world_size, get_rank, is_dist_avail_and_initialized
-from minigpt4.tasks.base_task import BaseTask
 from minigpt4.common.logger import MetricLogger
-from minigpt4.datasets.data_utils import prepare_sample
+from minigpt4.common.dist_utils import get_world_size, get_rank, is_dist_avail_and_initialized
 from minigpt4.tasks.aokvqa_tools import format_aokvqa_format, load_aokvqa, calculate_result
 from minigpt4.tasks.utils import convert_dict_to_tensor
+from minigpt4.tasks.base_task import BaseTask
+from minigpt4.datasets.data_utils import prepare_sample
     
 @registry.register_task("vqa_blip2")
 class VQABlip2Task(BaseTask):
@@ -85,7 +84,6 @@ class VQABlip2Task(BaseTask):
             seg_embs = [model.llama_model.model.embed_tokens(seg_t) for seg_t in seg_tokens]
             embs = torch.cat([seg_embs[0], image_emb, seg_embs[1]], dim=1)
             embed_atts = image_atts[:, :1].expand(-1, embs.shape[1])
-            # embed attention mask & target
             embed_targets = torch.ones((embs.shape[0], embs.shape[1])).to(embs.device) * -100
             
             loss_list = []

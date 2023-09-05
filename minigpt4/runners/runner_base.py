@@ -5,16 +5,19 @@
  For full license text, see the LICENSE_Lavis file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 """
 
-import datetime
-import json
-import logging
-import os
-import time
-from pathlib import Path
 
+import os
+import json
+import time
 import torch
-import torch.distributed as dist
+import logging
+import datetime
+from pathlib import Path
 import webdataset as wds
+import torch.distributed as dist
+from torch.nn.parallel import DistributedDataParallel as DDP
+from torch.utils.data import DataLoader, DistributedSampler
+
 from minigpt4.common.dist_utils import (
     download_cached_file,
     get_rank,
@@ -30,9 +33,6 @@ from minigpt4.datasets.datasets.dataloader_utils import (
     MultiIterLoader,
     PrefetchLoader,
 )
-from torch.nn.parallel import DistributedDataParallel as DDP
-from torch.utils.data import DataLoader, DistributedSampler
-
 
 @registry.register_runner("runner_base")
 class RunnerBase:
@@ -96,7 +96,6 @@ class RunnerBase:
 
     @property
     def optimizer(self):
-        # TODO make optimizer class and configurations
         if self._optimizer is None:
             num_parameters = 0
             p_wd, p_non_wd = [], []
@@ -145,11 +144,8 @@ class RunnerBase:
         if self._lr_sched is None:
             lr_sched_cls = registry.get_lr_scheduler_class(self.config.run_cfg.lr_sched)
 
-            # max_epoch = self.config.run_cfg.max_epoch
             max_epoch = self.max_epoch
-            # min_lr = self.config.run_cfg.min_lr
             min_lr = self.min_lr
-            # init_lr = self.config.run_cfg.init_lr
             init_lr = self.init_lr
 
             # optional parameters

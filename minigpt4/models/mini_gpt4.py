@@ -1,16 +1,14 @@
-import logging
-import random
 import copy
-
 import torch
-from torch.cuda.amp import autocast as autocast
+import random
+import logging
 import torch.nn as nn
+from transformers import LlamaTokenizer
+from torch.cuda.amp import autocast as autocast
 
 from minigpt4.common.registry import registry
 from minigpt4.models.blip2 import Blip2Base, disabled_train
 from minigpt4.models.modeling_llama import LlamaForCausalLM
-from transformers import LlamaTokenizer
-from transformers import CLIPVisionModel
 
 @registry.register_model("mini_gpt4")
 class MiniGPT4(Blip2Base):
@@ -253,7 +251,6 @@ class MiniGPT4(Blip2Base):
                         vqa_prompt = '[Multi-choice Visual Question Answering] ###Human: <Img><ImageHere></Img> '
                 else:
                     vqa_prompt = '###Human: <Img><ImageHere></Img> '
-                #print(vqa_prompt)
                 img_embeds, atts_img = self.prompt_wrap(img_embeds, atts_img, vqa_prompt)
             if samples["data_type"][0] == "conversation":
                 conv_prompt = '###Human: <Img><ImageHere></Img> '

@@ -1,6 +1,6 @@
 import torch
-import torch.nn as nn
 import argparse
+import torch.nn as nn
 from transformers import LlamaTokenizer
 from minigpt4.models.modeling_llama import LlamaForCausalLM
 

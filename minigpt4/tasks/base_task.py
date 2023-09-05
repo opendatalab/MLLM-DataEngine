@@ -5,16 +5,15 @@
  For full license text, see the LICENSE_Lavis file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 """
 
-import logging
 import os
-
 import torch
+import logging
 import torch.distributed as dist
-from minigpt4.common.dist_utils import get_rank, get_world_size, is_main_process, is_dist_avail_and_initialized
-from minigpt4.common.logger import MetricLogger, SmoothedValue
+
 from minigpt4.common.registry import registry
 from minigpt4.datasets.data_utils import prepare_sample
-
+from minigpt4.common.logger import MetricLogger, SmoothedValue
+from minigpt4.common.dist_utils import get_rank, get_world_size, is_main_process, is_dist_avail_and_initialized
 
 class BaseTask:
     def __init__(self, **kwargs):
@@ -178,14 +177,12 @@ class BaseTask:
         use_amp = scaler is not None
 
         if not hasattr(data_loader, "__next__"):
-            # convert to iterator if not already
             data_loader = iter(data_loader)
 
         metric_logger = MetricLogger(delimiter="  ")
         metric_logger.add_meter("lr", SmoothedValue(window_size=1, fmt="{value:.6f}"))
         metric_logger.add_meter("loss", SmoothedValue(window_size=1, fmt="{value:.4f}"))
 
-        # if iter-based runner, schedule lr based on inner epoch.
         logging.info(
             "Start training epoch {}, {} iters per inner epoch.".format(
                 epoch, iters_per_epoch
@@ -193,15 +190,12 @@ class BaseTask:
         )
         header = "Train: data epoch: [{}]".format(epoch)
         if start_iters is None:
-            # epoch-based runner
             inner_epoch = epoch
         else:
-            # In iter-based runner, we schedule the learning rate based on iterations.
             inner_epoch = start_iters // iters_per_epoch
             header = header + "; inner epoch [{}]".format(inner_epoch)
 
         for i in metric_logger.log_every(range(iters_per_epoch), log_freq, header):
-            # if using iter-based runner, we stop after iters_per_epoch iterations.
             if i >= iters_per_epoch:
                 break
 
@@ -239,8 +233,6 @@ class BaseTask:
             metric_logger.update(loss=loss.item())
             metric_logger.update(lr=optimizer.param_groups[0]["lr"])
 
-        # after train_epoch()
-        # gather the stats from all processes
         metric_logger.synchronize_between_processes()
         logging.info("Averaged stats: " + str(metric_logger.global_avg()))
         return {
@@ -264,7 +256,6 @@ class BaseTask:
 
         if is_main_process():
             logging.warning("rank %d starts merging results." % get_rank())
-            # combine results from all processes
             result = []
 
             for rank in range(get_world_size()):
