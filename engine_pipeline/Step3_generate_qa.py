@@ -90,7 +90,7 @@ if __name__ == "__main__":
                 print(f"The check point {check_point} not match the match point {match_point}, the start id should not be {start_idx}. Check.")
                 sys.exit()
     else:
-        start_idx = 0  # 开始的index
+        start_idx = 0
 
     # now let's generate new instructions
     batch_size = 1

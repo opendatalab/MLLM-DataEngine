@@ -7,9 +7,7 @@ import pickle
 import random
 from datetime import datetime
 random.seed(datetime.now().timestamp())
-
 from PIL import Image
-
 import torch
 import torch.nn.functional as F
 import argparse

@@ -13,10 +13,12 @@ def located_at_bbox(lst):
             return True
     return False
 
+
 def remove_blank(x):
     split = x.split(" ")
     split = [s for s in split if len(s)>0]
     return " ".join(split).strip()
+
 
 # remove boungding boxes
 def remove_bbox_v2(x):
@@ -28,15 +30,18 @@ def remove_bbox_v2(x):
     x = re.sub('\s*([,.?])', r'\1', x)
     return remove_blank(x)
 
+
 def have_bbox(s):
     if "coordinates" in s or "coordinate" in s or "bounding box" in s:
         return True
     return False
 
+
 def skip(s):
     if "skip" in s or "Skip" in s:
         return True
     return False
+
 
 def process_data(data_all):
     print(f'init_len: {len(data_all)}',end='\t')
@@ -137,6 +142,7 @@ def process_data(data_all):
     print(f'processed_len: {len(process_data_all_no_desc)}')
     
     return process_data_all_no_desc
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Post-process.')
