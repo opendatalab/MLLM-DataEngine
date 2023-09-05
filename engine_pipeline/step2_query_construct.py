@@ -157,7 +157,6 @@ def process(COCO_root_path, bad_case_path, coco_embedding_path, qtype_distributi
                 cat, bbox = anno[-1], anno[:4]
                 bbox = [bbox[0]/w, bbox[1]/h, (bbox[0]+bbox[2])/w, (bbox[1]+bbox[3])/h]
                 bbox = [round(b,3) for b in bbox]
-                #bbox_desc += f"{cat} <obj_{i+1}>: {bbox}\n"
                 bbox_desc += f"{cat} : {bbox}\n"
         except BaseException:
             pass
@@ -178,10 +177,6 @@ def process(COCO_root_path, bad_case_path, coco_embedding_path, qtype_distributi
         
     # bad case pool
     bad_case_pool = json.load(open(bad_case_path, "r"))
-
-    #del bad_case_pool["structuralized_imagetext_understanding"]
-    #del bad_case_pool["ocr"]
-    #del bad_case_pool["celebrity_recognition"]
     qtype_len = [len(l) for l in list(bad_case_pool.values())]
 
     #qtype_distribution = [l/sum(qtype_len) for l in qtype_len]
@@ -246,7 +241,6 @@ def process(COCO_root_path, bad_case_path, coco_embedding_path, qtype_distributi
             in_context_samples = [in_context_sample, in_context_sample]
         
         anchor_sample = in_context_samples[0]
-        #print(anchor_sample)
         
         # anchor image
         if cnt%2 == 0:
@@ -255,24 +249,18 @@ def process(COCO_root_path, bad_case_path, coco_embedding_path, qtype_distributi
             else:
                 image_path = val_file_all[anchor_sample["image_id"]]
             anchor_image = Image.open(image_path)
-            #anchor_image.save("anchor.jpg")
             
             with torch.inference_mode():
                 anchor_image = preprocess(anchor_image).unsqueeze(0).to(device)
                 anchor_features = model.encode_image(anchor_image)
-        
-                #print(anchor_features.shape)
-                #print(image_embeds.shape)
-        
+
                 # similarity
                 anchor_features = anchor_features.repeat(image_embeds.shape[0], 1)
                 similarity = F.cosine_similarity(image_embeds, anchor_features)
-                #print(similarity.shape)
         
                 # topk
                 topk_query = torch.topk(similarity, TOPK)
                 topk_query_idx = topk_query[1]
-                #print(topk_query_idx)
         
             rand_idx = torch.randperm(topk_query_idx.shape[0])
             topk_query_idx = topk_query_idx[rand_idx]
