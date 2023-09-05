@@ -136,8 +136,8 @@ python apply_lora_delta.py --base-model path/to/vicuna/weight \
 
 For evaluation on A-OKVQA, run following commands:
 
-```
-torchrun --nproc-per-node 4 --master-port $RANDOM train.py --cfg-path eval_configs/minigpt4_eval.yaml
+```bash
+torchrun --nproc-per-node NUM_GPU --master-port $RANDOM train.py --cfg-path eval_configs/minigpt4_eval.yaml
 ```
 
 in ```eval_configs/minigpt4_eval.yaml```, please change ```llama_model``` to the path of merged LLM, and set ```ckpt``` to the stage1 pretrained MiniGPT-4 model.
@@ -248,4 +248,4 @@ If you're using MLLM-DataEngine in your research or applications, please cite us
 
 
 ## License
-[BSD 3-Clause License](LICENSE.md).
+[BSD 3-Clause License](LICENSE.md)
