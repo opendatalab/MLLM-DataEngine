@@ -20,7 +20,7 @@ We have already classified the A-OKVQA validation set, and you can download the 
 For reference, here is the script we executed to classify the A-OKVQA validation set:
 
 ```bash
-python Pre_step_bad_case_classify.py \
+python pre_step_bad_case_classify.py \
     --input path/to/aokvqa/val/aokvqa_val.json \
     --image root/path/to/image/folder \
     --output path/to/aokvqa/val/aokvqa_v1p0_val_classified.json
@@ -46,7 +46,7 @@ This step constructs queries for GPT-4 to generate data. The classified 'bad cas
 Following the example command below:
 
 ```bash
-srun --quotatype=auto --gres=gpu:1 python Step2_query_construct.py \
+srun --quotatype=auto --gres=gpu:1 python step2_query_construct.py \
     --input path/to/classified/bad/cases/bad_case_aokvqa_classified.json \
     --COCO_dataset path/to/COCO/dataset/folder \
     --COCO_embeding path/to/COCO/embeding/coco_images.pth \
@@ -66,10 +66,10 @@ Please download the `coco_image.pth` file from this [Google Drive](https://drive
 
 ## Step 3: Generate QA
 
-With the constructed queries, we prompt GPT-4 to generate QAs. Begin by executing `engine_pipeline/Step3_generate_qa.py`, following the example command below:
+With the constructed queries, we prompt GPT-4 to generate QAs. Begin by executing `engine_pipeline/step3_generate_qa.py`, following the example command below:
 
 ```bash
-python engine_pipeline/Step3_generate_qa.py \
+python engine_pipeline/step3_generate_qa.py \
     --input path/to/constructed/query/gptvqa_prompt.json \
     --output path/to/generated/QA/gptvqa_result.jsonl
 ```
@@ -84,10 +84,10 @@ If your code execution halts midway, simply run it again will automaticly resume
 
 Following the QA generation with GPT-4, post-processing is necessary to prepare the data for fine-tuning. This step filters out QAs with "SKIP" as their answers and also those with references to 'bounding box' and 'image description' in their answers. Afterwards, we organize the data in the format of A-OKVQA.
 
-For this, execute `engine_pipeline/Step4_post_process.py` with the example command below:
+For this, execute `engine_pipeline/step4_post_process.py` with the example command below:
 
 ```bash
-python engine_pipeline/Step4_post_process.py \
+python engine_pipeline/step4_post_process.py \
     --input path/to/generated/QA/gptvqa_result.jsonl \
     --output path/to/post_processed/training/data/gptvqa_train_data.json
 ```
