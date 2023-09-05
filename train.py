@@ -7,10 +7,9 @@
 
 
 import os
+import torch
 import random
 import argparse
-
-import torch
 import numpy as np
 import torch.backends.cudnn as cudnn
 
@@ -25,7 +24,6 @@ from minigpt4.common.optims import (
 from minigpt4.common.registry import registry
 from minigpt4.common.utils import now
 
-# imports modules for registration
 from minigpt4.datasets.builders import *
 from minigpt4.models import *
 from minigpt4.processors import *
@@ -69,10 +67,6 @@ def get_runner_class(cfg):
 
 
 def main():
-    # allow auto-dl completes on main process without timeout when using NCCL backend.
-    # os.environ["NCCL_BLOCKING_WAIT"] = "1"
-
-    # set before init_distributed_mode() to ensure the same job_id shared across all ranks.
     job_id = now()
 
     cfg = Config(parse_args())
@@ -81,7 +75,6 @@ def main():
 
     setup_seeds(cfg)
 
-    # set after init_distributed_mode() to only log on master.
     setup_logger()
 
     cfg.pretty_print()

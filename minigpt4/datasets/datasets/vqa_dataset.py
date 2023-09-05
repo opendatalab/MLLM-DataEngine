@@ -1,16 +1,15 @@
 import os
 import json
-import PIL
+import random
 import logging
+import numpy as np
+from io import BytesIO
 from PIL import Image
 from PIL import ImageFile
 from statistics import mode
-ImageFile.LOAD_TRUNCATED_IMAGES = True
-
 from torch.utils.data import Dataset
-from io import BytesIO
-import random
-import numpy as np
+
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 class AOKVQADataset(Dataset):
     def __init__(self, vis_processor, text_processor, vis_root, anno_path, coco_anno, format="Q-A", sample_num=None):
@@ -22,7 +21,6 @@ class AOKVQADataset(Dataset):
         self.vis_processor = vis_processor
         self.text_processor = text_processor
 
-        # read annotation from ceph
         if self.anno_path.startswith('cluster'):
             from petrel_client.client import Client
             client = Client("~/petreloss.conf")

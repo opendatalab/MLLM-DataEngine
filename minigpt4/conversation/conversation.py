@@ -1,17 +1,13 @@
-import argparse
 import time
-from PIL import Image
-
 import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM, LlamaTokenizer
-from transformers import StoppingCriteria, StoppingCriteriaList
-
+import argparse
 import dataclasses
+from PIL import Image
 from enum import auto, Enum
 from typing import List, Tuple, Any
-
 from minigpt4.common.registry import registry
-
+from transformers import StoppingCriteria, StoppingCriteriaList
+from transformers import AutoTokenizer, AutoModelForCausalLM, LlamaTokenizer
 
 class SeparatorStyle(Enum):
     """Different separator style."""
@@ -117,7 +113,6 @@ CONV_VISION = Conversation(
 )
 
 
-
 class Chat:
     def __init__(self, model, vis_processor, device='cuda:0'):
         self.device = device
@@ -134,7 +129,7 @@ class Chat:
         else:
             conv.append_message(conv.roles[0], text)
 
-    def answer(self, conv, img_list, max_new_tokens=300, num_beams=1, min_length=1, top_p=0.9,
+    def answer(self, conv, img_list, max_new_tokens=300, num_beams=1, min_length=1, top_p=0.9, do_sample=True,
                repetition_penalty=1.0, length_penalty=1, temperature=1.0, max_length=2000):
         conv.append_message(conv.roles[1], None)
         embs = self.get_context_emb(conv, img_list)
@@ -152,7 +147,7 @@ class Chat:
             max_new_tokens=max_new_tokens,
             stopping_criteria=self.stopping_criteria,
             num_beams=num_beams,
-            do_sample=True,
+            do_sample=do_sample,
             min_length=min_length,
             top_p=top_p,
             repetition_penalty=repetition_penalty,
