@@ -91,7 +91,7 @@ in [eval_configs/minigpt4_eval.yaml](eval_configs/minigpt4_eval.yaml#L10) at Lin
     
 ```
 
-## Model Training & Evaluation
+## Model Training
 
 **1. model tuning**
 
@@ -130,9 +130,9 @@ python apply_lora_delta.py --base-model path/to/vicuna/weight \
     --target path/to/merged/llm
 ```
 
-**3. evaluation**
+## Model Evaluation
 
-#### evaluate on A-OKVQA
+### evaluate on A-OKVQA
 
 For evaluation on A-OKVQA, run following commands:
 
@@ -152,7 +152,7 @@ Three results files are stored under ```engine_pipeline/data``` during evaluatio
 
 These files are used in follow-up data-engine pipeline.
 
-#### evaluate on MMBenchmark
+### evaluate on MMBenchmark
 
 To evaluate on MMBenchmark, install opencompass according to following steps:
 
