@@ -186,7 +186,7 @@ mim install -e ".[multimodal]"
 4. install other packages
 
 ```
-pip install decord timm omegaconf webdataset peft openpyxl
+pip install decord timm omegaconf webdataset peft openpyxl iopath
 ```
 
 After opencompass environment is prepared, set the dataset path and model path in evaluation config file. Evaluation config file used is ```configs/multimodel/minigpt_4/minigpt_4_7b_mmbench.py```.
@@ -248,4 +248,4 @@ If you're using MLLM-DataEngine in your research or applications, please cite us
 
 
 ## License
-[BSD 3-Clause License](LICENSE.md)
+[Apache 2.0 License](LICENSE.md)
