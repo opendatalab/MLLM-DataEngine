@@ -5,13 +5,13 @@
  For full license text, see the LICENSE_Lavis file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 """
 
-import argparse
-import os
-import logging
-import random
 
-import numpy as np
+import os
+import random
+import argparse
+
 import torch
+import numpy as np
 import torch.backends.cudnn as cudnn
 
 import minigpt4.tasks as tasks
@@ -46,8 +46,6 @@ def parse_args():
     )
 
     args = parser.parse_args()
-    # if 'LOCAL_RANK' not in os.environ:
-    #     os.environ['LOCAL_RANK'] = str(args.local_rank)
 
     return args
 

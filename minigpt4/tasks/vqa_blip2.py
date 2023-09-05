@@ -72,10 +72,7 @@ class VQABlip2Task(BaseTask):
             
             _prompt = f"###Human: <img><ImageHere></img> {question}\n{choice_txt}\n###Assistant: The answer is"
             
-            # encode image
             image_emb, image_atts = model.encode_img(image)
-            
-            # wrap image
             prompt_segs = _prompt.split('<ImageHere>')
             before = model.llama_tokenizer(
                 prompt_segs[0], return_tensors="pt", add_special_tokens=False
@@ -91,7 +88,6 @@ class VQABlip2Task(BaseTask):
             # embed attention mask & target
             embed_targets = torch.ones((embs.shape[0], embs.shape[1])).to(embs.device) * -100
             
-            # embeds for answers
             loss_list = []
             for i, answer in enumerate(choices):
                 letter = "ABCDEF"[i]
@@ -107,7 +103,7 @@ class VQABlip2Task(BaseTask):
                 to_regress_embeds = model.llama_model.model.embed_tokens(to_regress_tokens.input_ids.long())
                 to_regress_target = copy.deepcopy(to_regress_tokens.input_ids)
                 to_regress_atts = to_regress_tokens.attention_mask
-                # no bos token in BLIP2
+                
                 embeds = torch.cat([embs, to_regress_embeds], dim=1)
                 attention_mask = torch.cat([embed_atts, to_regress_atts], dim=1)
                 target = torch.cat([embed_targets, to_regress_target], dim=1).long()
@@ -140,13 +136,12 @@ class VQABlip2Task(BaseTask):
                 }
             )
         
-        # convert dictionary -> tensor for gather all results in all ranks
+        # gather results of all ranks
         part_tensor = convert_dict_to_tensor(results)
         shape_tensor = torch.tensor(part_tensor.shape).cuda()
         shape_list = [shape_tensor.clone() for _ in range(get_world_size())]
         dist.all_gather(shape_list, shape_tensor)
     
-        # gather tensor
         max_shape = max(shape_list)
         part_tensor_pad = torch.zeros(max_shape).cuda()
         part_tensor_pad[:part_tensor.shape[0]] = part_tensor
@@ -160,16 +155,14 @@ class VQABlip2Task(BaseTask):
             _data = json.loads(_data)
             results_all_rank.extend(_data)
             
-        # save model
+        # save evaluation results
         if save_result:
-            # save evaluation results
             filename = "engine_pipeline/data/aokvqa_eval.json"
             print(f"save evaluation results to {filename}")
             os.makedirs(os.path.dirname(filename), exist_ok=True)
             with open(filename, "w") as f:
                 json.dump(results_all_rank, f)
             
-            # reformatting
             results_all_rank_classified = {}
             for item in results_all_rank:
                 if item["question_type"] not in results_all_rank_classified:
