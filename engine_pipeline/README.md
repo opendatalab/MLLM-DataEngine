@@ -46,7 +46,7 @@ This step constructs queries for GPT-4 to generate data. The classified 'bad cas
 Following the example command below:
 
 ```bash
-srun --quotatype=auto --gres=gpu:1 python step2_query_construct.py \
+python step2_query_construct.py \
     --input path/to/classified/bad/cases/bad_case_aokvqa_classified.json \
     --COCO_dataset path/to/COCO/dataset/folder \
     --COCO_embeding path/to/COCO/embeding/coco_images.pth \
