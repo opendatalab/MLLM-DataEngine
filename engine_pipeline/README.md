@@ -41,7 +41,7 @@ Both output files will be utilized in the next step.
 
 ## Step 2: Query Construction
 
-This step constructs queries for GPT-4 to generate data. The classified 'bad cases' are used as few-shot examples. Additionally, CLIP is used to select suitable images from the COCO dataset while a prompt template helps manage the instruction.
+This step constructs queries for GPT-4 to generate data. The classified 'bad cases' are used as few-shot examples. Additionally, CLIP is used to select suitable images from the COCO dataset while a prompt template helps manage the instruction. This step requires [CLIP](https://github.com/openai/CLIP), following official instructions to install.
 
 Following the example command below:
 
