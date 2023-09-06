@@ -121,7 +121,7 @@ class VQABlip2Task(BaseTask):
             results.append(
                 {
                     "image_id": image_id,
-                    "image_path": os.path.join(vis_root, f"{str(image_id).zfill(12)}.jpg"),
+                    "image_path": os.path.join("val2017", f"{str(image_id).zfill(12)}.jpg"),
                     "idx": question_id,
                     "question": question,
                     "choices": choices,
