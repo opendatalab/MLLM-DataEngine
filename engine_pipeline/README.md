@@ -15,7 +15,7 @@ You can find all demo data in the `engine_pipeline/data_demo` directory.
 
 In this step, we use GPT-4 to classify the questions in the A-OKVQA validation set into 18 categories. For further details regarding these 18 categories, please refer to the provided [paper](https://arxiv.org/pdf/2308.13566.pdf) or explore the code directly.
 
-We have already classified the A-OKVQA validation set, and you can download the output from [Google Drive]([https://drive.google.com/file/d/1RCQbCTIcdwqTJSmrZYlocXP87aDH3hgn/view?usp=drive_link](https://drive.google.com/file/d/1RE8nyVzXhIG7GMrYyKiQv10vY-gud2TK/view?usp=drive_link)). Therefore, there's no need to rerun this code if you're using A-OKVQA; you can simply use the downloaded classified validation set during model inference.
+We have already classified the A-OKVQA validation set, and you can download the output from [Google Drive]([https://drive.google.com/file/d/1RCQbCTIcdwqTJSmrZYlocXP87aDH3hgn/view?usp=drive_link](https://drive.google.com/file/d/1RE8nyVzXhIG7GMrYyKiQv10vY-gud2TK/view?usp=drive_link)). Therefore, there's no need to rerun this code if you're using A-OKVQA; you can simply use the downloaded classified validation set during model evaluation.
 
 For reference, here is the script we executed to classify the A-OKVQA validation set:
 
@@ -28,11 +28,11 @@ python Pre-Step-bad_case_classify.py \
 
 Note: You'll need to update line 14 in `engine_pipeline/utils.py` with your own OPENAI key to access GPT-4.
 
-## Step 1: Model Inference
+## Step 1: Model Evaluation
 
-Detailed information on model inference can be found in the parent [README](../README.md).
+Detailed information on model evaluation can be found in the parent [README](../README.md).
 
-After the inference process, two output files will be generated:
+After the evaluation process, two output files will be generated:
 
 1. `bad_case_aokvqa_classified.json`: Contains the 'bad cases' identified from the validation set, which are later used as few-shot examples for query construction during the data generation process.
 2. `weight.txt`: Sets the data generation proportion for each question type. The weight is decided by the score your model achieves for each question type, calculated using the formula 'weight = 1 - score'.
@@ -56,13 +56,13 @@ srun --quotatype=auto --gres=gpu:1 python Step2-query_construct.py \
     --topk 1000
 ```
 
-The input data is the classified bad cases achieved from validation set (one of the output file from model infer), which is demonstrated in engine_pipeline/data_demo/bad_case_aokvqa_classified.json, the output data will be constructed query, which is demonstrated in engine_pipeline/data_demo/gptvqa_prompt.json.
+The input data is the classified bad cases achieved from validation set (one of the output file from model infer), which is demonstrated in engine_pipeline/data_demo/bad_case_aokvqa_classified.json, the output data will be constructed query, which is demonstrated in `engine_pipeline/data_demo/gptvqa_prompt.json`.
 
 The weight is demonstrated in engine_pipeline/data_demo/weight.txt. It is calculated from the score your model achieve for each question type (the other one of the output file from model infer). You can also adjust the weight in your own way, such as the number of bad cases. If not specified, all types of questions will be sampled with equal weights.
 
 Please download the `coco_image.pth` file from this [Google Drive](https://drive.google.com/file/d/150lBSs-cJiL1sznd5Ha9JO10sOrmZErp/view?usp=drive_link).
 
-'maxnum' is the total number of generated QA. 'topk' is the number of top k similar images in CLIP.
+`maxnum` is the total number of generated QA. `topk` is the number of top k similar images in CLIP.
 
 ## Step 3: Generate QA
 
@@ -74,7 +74,7 @@ python engine_pipeline/Step3-generate_qa.py \
     --output path/to/generated/QA/gptvqa_result.jsonl
 ```
 
-The input data is the constructed query, which is demonstrated in engine_pipeline/data_demo/gptvqa_prompt.json. The output data will be the generated QA by GPT-4, which is demonstrated in engine_pipeline/data_demo/gptvqa_result.jsonl. 
+The input data is the constructed query, which is demonstrated in `engine_pipeline/data_demo/gptvqa_prompt.json`. The output data will be the generated QA by GPT-4, which is demonstrated in engine_pipeline/data_demo/gptvqa_result.jsonl. 
 
 Remember to update line 14 in `engine_pipeline/utils.py` with your own OPENAI key to access GPT-4.
 
@@ -92,10 +92,33 @@ python engine_pipeline/Step4-post-process.py \
     --output path/to/post-processed/training/data/gptvqa_train_data.json
 ```
 
-The input data is the generated QA by GPT-4, which is demonstrated in engine_pipeline/data_demo/gptvqa_result.jsonl. The output data is post-processed training data, which is demonstrated in engine_pipeline/data_demo/gptvqa_train_data.json.
+The input data is the generated QA by GPT-4, which is demonstrated in `engine_pipeline/data_demo/gptvqa_result.jsonl`. The output data is post-processed training data, which is demonstrated in `engine_pipeline/data_demo/gptvqa_train_data.json`.
 
 ## Step 5: Model Fine-tuning
 
 Find more details about the model fine-tuning process in the parent [README](../README.md).
+
+Before model fine-tuning, refer to the data preparation section in [README](../README.md) and prepare data like follows:
+
+```
+.
+├── A-OKVQA
+│   ├── aokvqa_v1p0_train.json
+│   └── aokvqa_v1p0_val_classified.json  # with question type assigned by GPT-4
+├── cc_sbu_align
+│   ├── filter_cap.json
+│   └── image
+├── COCO2017
+│   ├── annotations
+│   │    └── ...
+│   ├── train2017
+│   │    └── ...
+│   └── val2017
+│        └── ...
+└── gptvqa
+    ├── DataEngine_round1_data.json
+    └── DataEngine_round2_data.json
+    
+```
 
 After completing this step, you can revert to Step 1 to evaluate your model's performance.
