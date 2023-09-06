@@ -121,4 +121,46 @@ Before model fine-tuning, refer to the data preparation section in [README](../R
     
 ```
 
-After completing this step, you can revert to Step 1 to evaluate your model's performance.
+To use generated data into model fine-tuning, there are several things you should do:
+
+**1. add dataset config**
+
+Dataset configs are put under ```minigpt4/configs/datasets/```. Each dataset config consists of a folder and some yaml configs under this folder, such as ```gptvqa_round1/defaults.yaml```. To add another dataset, create a new folder and yaml config under this folder. Use GPTVQA config ```gptvqa_round1/defaults.yaml``` we provided as template:
+
+```yaml
+datasets:
+  the_name_of_your_data:
+    data_type: images
+    build_info:
+      train:
+          annotation: ./data/gptvqa/DataEngine_round1_data.json
+          coco: ./data/COCO2017/annotations/instances_train2017.json
+          images: ./data/COCO2017/train2017
+```
+
+Set ```annotation``` to your generated QA json and change the dataset name.
+
+**2. add dataset builder**
+
+After step1, add dataset builder in ```minigpt4/datasets/builders/image_text_pair_builder.py```. Just follow the code of GPTVQA builder (```GPTVQARound1Builder```) and add a new builder pointed to your generated data. Set ```DATASET_CONFIG_DICT``` to the yaml config of your generated data and remember changing the register name of dataset in decorator.
+
+**3. add dataset into train config**
+
+Finally, to add your generated data into model fine-tuning, just add data into train config like this:
+
+```yaml
+the_name_of_your_data:
+    vis_processor:
+      train:
+        name: "blip2_image_train"
+        image_size: 224
+    text_processor:
+      train:
+        name: "blip_caption"
+    format: "QM-A"
+    sample_ratio: 70
+```
+
+Be sure to change the dataset name and set proper sample ratio (the square root of the amount of data follow Instruct-BLIP).
+
+After model fine-tuning using your generated data, you can revert to Step 1 to evaluate your model's performance.
