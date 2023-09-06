@@ -103,9 +103,9 @@ in train config, set the ```llama_model``` to the path of vicuna model, and set 
 torchrun --nproc-per-node NUM_GPU train.py --cfg-path path/to/config
 ```
 
-Train configs, finetuned model, and results are shown in following table.
+Train configs, finetuned model (lora weight), and results are shown in following table.
 
-| **LLM** | **Base SFT Data** | **Round1** | **Round2** | **format** | **MMBench dev** | **AOKVQA val (MC)** | **AOKVQA val (DA)** | **config** | **checkpoint** |
+| **LLM** | **Base SFT Data** | **Round1** | **Round2** | **format** | **MMBench dev** | **AOKVQA val (MC)** | **AOKVQA val (DA)** | **config** | **checkpoint (lora weight)** |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | 7B | CCSBUAlign, A-OKVQA |  |  | QMA | 45.8 | 70.2 | 59.1 | [config](train_configs/ccsbualign_aokvqa/vicuna-7b/QMA/minigpt4_7b_stage2_finetune_aokvqa.yaml) | [model](https://drive.google.com/file/d/1rsYx7Uc-fB8-1ZgKTNqIGmQ_tbNzf6vP/view?usp=drive_link) |
 | 7B | CCSBUAlign, A-OKVQA | :heavy_check_mark: |  | QMA | 47.1 | 71.8 | 60.8 | [config](train_configs/ccsbualign_aokvqa/vicuna-7b/QMA/minigpt4_7b_stage2_finetune_aokvqa_round1.yaml) | [model](https://drive.google.com/file/d/1qzpUriJK1yKA274nH9DTHPimaepz-EdM/view?usp=drive_link) |
@@ -126,7 +126,7 @@ after finetuning, run following command to merge lora weight into LLM:
 
 ```
 python apply_lora_delta.py --base-model path/to/vicuna/weight \
-    --ckpt path/to/finetuned/model \
+    --ckpt path/to/lora/weight \
     --target path/to/merged/llm
 ```
 
