@@ -48,7 +48,7 @@ vicuna_weights
 
 Download the only stage1 pretrained checkpoints according to the Vicuna model you prepare.
 
-|                                Checkpoint Aligned with Vicuna 13B                                |                               Checkpoint Aligned with Vicuna 7B                                |
+|                                Checkpoint Aligned with Vicuna 7B                                |                               Checkpoint Aligned with Vicuna 13B                                |
 :------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------:
  [Downlad](https://drive.google.com/file/d/1HihQtCEXUyBM1i9DQbaK934wW3TZi-h5/view?usp=share_link) | [Download](https://drive.google.com/file/d/1u9FRRBB3VovP1HxCAlpD9Lw4t4P6-Yq8/view?usp=share_link)
 
