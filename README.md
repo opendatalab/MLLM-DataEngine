@@ -46,15 +46,11 @@ vicuna_weights
 
 **3. Prepare the stage1 pretrained MiniGPT-4 checkpoint**
 
-Download the pretrained checkpoints according to the Vicuna model you prepare.
+Download the only stage1 pretrained checkpoints according to the Vicuna model you prepare.
 
 |                                Checkpoint Aligned with Vicuna 13B                                |                               Checkpoint Aligned with Vicuna 7B                                |
 :------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------:
- [Downlad](https://drive.google.com/file/d/1a4zLvaiDBr-36pasffmgpvH5P7CKmpze/view?usp=share_link) | [Download](https://drive.google.com/file/d/1RY9jV0dyqLX-o38LrumkKRh6Jtaop58R/view?usp=sharing) 
-
-
-Then, set the path to the pretrained checkpoint in the evaluation config file 
-in [eval_configs/minigpt4_eval.yaml](eval_configs/minigpt4_eval.yaml#L10) at Line 11. 
+ [Downlad](https://drive.google.com/file/d/1HihQtCEXUyBM1i9DQbaK934wW3TZi-h5/view?usp=share_link) | [Download](https://drive.google.com/file/d/1u9FRRBB3VovP1HxCAlpD9Lw4t4P6-Yq8/view?usp=share_link)
 
 **4. Data Preparation**
 
@@ -95,9 +91,9 @@ in [eval_configs/minigpt4_eval.yaml](eval_configs/minigpt4_eval.yaml#L10) at Lin
 
 **1. model tuning**
 
-We add round1 and round2 data of GPTVQA into instruct tuning. After preparing the data and model, setting ```--cfg-path``` and run the following command. In our experiments, we use 4 A100 gpus. We add lora weights to finetune LLM, which are saved in checkpoint.
+We add round1 and round2 data of GPTVQA into instruct tuning. In instruct tuning, we use lora to finetune LLM. After preparing the data and model, setting ```--cfg-path``` and run the following command. In our experiments, we use 4 A100 gpus. We add lora weights to finetune LLM, which are saved in checkpoint.
 
-in train config, set the ```llama_model``` to the path of vicuna model, and set ```ckpt``` to the stage1 pretrained MiniGPT-4 model.
+In train config, set the ```llama_model``` to the path of vicuna model, and set ```ckpt``` to the stage1 pretrained MiniGPT-4 model. Run the following command to finetune model. ```NUM_GPU``` is the number of GPUs you use.
 
 ```bash
 torchrun --nproc-per-node NUM_GPU train.py --cfg-path path/to/config
