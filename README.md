@@ -30,7 +30,7 @@ pip3 install torch==2.0.0+cu117 torchvision==0.15.1+cu117 --index-url https://do
 
 **2. Prepare the pretrained Vicuna weights**
 
-The current version of MLLM-DataEngine is built on the v0 version of Vicuna-13B.
+The current version of MLLM-DataEngine is built on the v0 version of Vicuna.
 Please refer to our instruction [here](PrepareVicuna.md) 
 to prepare the Vicuna weights.
 The final weights would be in a single folder in a structure similar to the following:
