@@ -64,7 +64,7 @@ Download the only stage1 pretrained checkpoints according to the Vicuna model yo
 
 | A-OKVQA | CCSBUAlign | DataEngine-InstData |
 | :---: | :---: | :---: |
-| [download](https://drive.google.com/file/d/1912dPJJkVMi7is3oWw_RX59gLekdSdX4/view?usp=drive_link) | [download](https://drive.google.com/file/d/1s7kKpRSB0BVveRY2YGN4uhdCmxjWOfJb/view?usp=drive_link) | [download](https://openxlab.org.cn/datasets/OpenDataLab/DataEngine-InstData) |
+| [download](https://drive.google.com/file/d/1912dPJJkVMi7is3oWw_RX59gLekdSdX4/view?usp=drive_link) | [download](https://drive.google.com/file/d/1s7kKpRSB0BVveRY2YGN4uhdCmxjWOfJb/view?usp=drive_link) | [download](https://opendatalab.com/OpenDataLab/DataEngine-InstData) |
 
 4. finally check the data structure as follows:
 
