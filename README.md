@@ -83,7 +83,7 @@ Download the only stage1 pretrained checkpoints according to the Vicuna model yo
 │   │    └── ...
 │   └── val2017
 │        └── ...
-└── DataEngine-InstData
+└── gptvqa
     ├── DataEngine_round1_data.json
     └── DataEngine_round2_data.json
 ```
