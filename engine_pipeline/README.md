@@ -15,7 +15,7 @@ You can find all demo data in the `engine_pipeline/data_demo` directory.
 
 In this step, we use GPT-4 to classify the questions in the A-OKVQA validation set into 18 categories. For further details regarding these 18 categories, please refer to the provided [paper](https://arxiv.org/pdf/2308.13566.pdf) or explore the code directly.
 
-We have already classified the A-OKVQA validation set, and you can download the output from [Google Drive]([https://drive.google.com/file/d/1RCQbCTIcdwqTJSmrZYlocXP87aDH3hgn/view?usp=drive_link](https://drive.google.com/file/d/1RE8nyVzXhIG7GMrYyKiQv10vY-gud2TK/view?usp=drive_link)). Therefore, there's no need to rerun this code if you're using A-OKVQA; you can simply use the downloaded classified validation set during model evaluation.
+We have already classified the A-OKVQA validation set, and you can download the classified A-OKVQA val from [Google Drive](https://drive.google.com/file/d/1912dPJJkVMi7is3oWw_RX59gLekdSdX4/view). Therefore, there's no need to rerun this code if you're using A-OKVQA; you can simply use the downloaded classified validation set during model evaluation.
 
 For reference, here is the script we executed to classify the A-OKVQA validation set:
 

@@ -223,6 +223,10 @@ minigpt_4_mmbench_load_from = '/path/to/prerained_minigpt4_7b.pth'  # noqa
 
 After everything is prepared, following the command [here](https://github.com/open-compass/opencompass/tree/main/configs/multimodal/minigpt_4) to evaluate on MMBenchmark dev. 
 
+## Data-engine Pipeline
+
+For data generation in data-engine pipeline, please refer to [here](engine_pipeline/README.md).
+
 ## Acknowledgement
 
 + [MiniGPT-4](https://github.com/Vision-CAIR/MiniGPT-4) This reposity utilize MiniGPT-4 as codebase and base model.
