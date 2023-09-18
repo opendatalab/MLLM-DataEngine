@@ -1,4 +1,4 @@
-# MLLM-DataEngine: An Iterative Refinement Approach for MLLM
+# MLLM-DataEngine: An Iterative Refinement Approach for MLLM <a href='https://arxiv.org/abs/2308.13566'><img src='https://img.shields.io/badge/Paper-Arxiv-red'></a>
 
 **Shanghai Artificial Intellegence Laboratory**
 
