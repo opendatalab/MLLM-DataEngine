@@ -1,0 +1,6 @@
+datasets:
+  flickr_CaptionToPhrase:
+    data_type: images
+    build_info:
+      image_path: ./train_dataset/flickr/flickr30k-images
+      ann_path: ./train_dataset/flickr/captiontobbox.json

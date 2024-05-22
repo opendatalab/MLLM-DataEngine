@@ -1,0 +1,5 @@
+datasets:
+  unnatural_instruction:
+    data_type: text
+    build_info:
+      ann_path: ./train_dataset/nlp/filtered_unnatural_instruction.json

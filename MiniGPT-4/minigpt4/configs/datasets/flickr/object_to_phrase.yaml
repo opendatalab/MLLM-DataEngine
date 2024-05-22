@@ -1,0 +1,6 @@
+datasets:
+  flickr_ObjectToPhrase:
+    data_type: images
+    build_info:
+      image_path: ./train_dataset/flickr/flickr30k-images
+      ann_path: ./train_dataset/flickr/phrasetobbox.json

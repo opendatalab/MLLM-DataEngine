@@ -1,0 +1,7 @@
+datasets:
+  multitask_conversation:
+    data_type: images
+    build_info:
+    
+      image_path: ./train_dataset/COCO2014/train
+      ann_path: ./train_dataset/multitask_conversation/multitask_conversation.json

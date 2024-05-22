@@ -1,0 +1,59 @@
+model:
+  arch: minigpt_v2
+  model_type: pretrain
+  max_txt_len: 500
+  end_sym: "</s>"
+  low_resource: False
+  prompt_template: '[INST] {} [/INST]'
+  llama_model: "meta-llama/Llama-2-7b-chat-hf"
+  ckpt: "./dataengine_minigpt4v2.pth"
+  lora_r: 64
+  lora_alpha: 16
+
+
+datasets:
+  cc_sbu_align:
+    vis_processor:
+      train:
+        name: "blip2_image_eval"
+        image_size: 448
+    text_processor:
+      train:
+        name: "blip_caption"
+
+evaluation_datasets:
+  okvqa:
+    eval_file_path: ./evaluation_dataset/okvqa/
+    img_path: ./evaluation_dataset/coco2014_val     
+    max_new_tokens: 20
+    batch_size: 10
+  vizwiz:
+    eval_file_path: ./evaluation_dataset/vizwiz/val.json  
+    img_path: ./evaluation_dataset/vizwiz/vizwiz_images    
+    max_new_tokens: 20
+    batch_size: 10
+  vsr:
+    eval_file_path: cambridgeltl/vsr_zeroshot 
+    img_path: ./evaluation_dataset/vsr/vsr_images    
+    max_new_tokens: 20
+    batch_size: 10
+  seed:
+    eval_file_path: ./evaluation_dataset/seed/seed-bench-image.jsonl
+    img_path: ./evaluation_dataset/seed
+    max_new_tokens: 20
+    batch_size: 10
+  mmbench:
+    eval_file_path: ./evaluation_dataset/mmbench/mmbench_dev_20230712.tsv
+    max_new_tokens: 20
+    batch_size: 10
+  
+
+run:
+  task: image_text_pretrain
+  name: minigptv2_evaluation
+  save_path: evaluation_results
+
+  
+
+  
+
