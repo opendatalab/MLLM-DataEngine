@@ -16,7 +16,8 @@ Compared with previous instruction fine-tuning dataset collection methods which 
 
 ## News and Updates
 
-- `2024.05` 🎉🎉🎉 MLLM-DataEngine-v2 are publicly available! Compared to previous version, MLLM-DataEngine-v2 generated instruction fine-tuning (SFT) data has **larger amount, higher quality, and more diversity**. Meanwhile, MLLM-DataEngine-v2 supports **SOTA open-source models** ([LLaVA-1.5](https://github.com/haotian-liu/LLaVA) and [MiniGPT4-v2](https://github.com/Vision-CAIR/MiniGPT-4)) and shows significant improvements on various public benchmarks.
+- `2024.05` 🎉🎉🎉 MLLM-DataEngine-v2 are publicly available! Compared to previous version([version1.0](https://github.com/opendatalab/MLLM-DataEngine/tree/version1.0
+)), MLLM-DataEngine-v2 generated instruction fine-tuning (SFT) data has **larger amount, higher quality, and more diversity**. Meanwhile, MLLM-DataEngine-v2 supports **SOTA open-source models** ([LLaVA-1.5](https://github.com/haotian-liu/LLaVA) and [MiniGPT4-v2](https://github.com/Vision-CAIR/MiniGPT-4)) and shows significant improvements on various public benchmarks.
 
 - `2023.09` 🎉🎉🎉 MLLM-DataEngine are publicly available, supporting [MiniGPT4](https://github.com/Vision-CAIR/MiniGPT-4) and achieves **greatly improved score on MMBenchmark** (see [paper](https://arxiv.org/pdf/2308.13566)).
 
